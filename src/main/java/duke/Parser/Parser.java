@@ -1,6 +1,7 @@
 package duke.Parser;
 
 import duke.exception.DukeException;
+import duke.storage.Storage;
 
 public class Parser {
 	/**
@@ -22,17 +23,17 @@ public class Parser {
 	 * @param expectedTaskName expected name of a task
 	 */
 	public static void checkIfFirstWordValid(String input, String expectedTaskName) {
+		Storage storage = new Storage();
 		String firstWord = input.split(" ", 2)[0];
 		try {
 			if (!firstWord.equals(expectedTaskName)) {
-				System.out.println("Parser");
 				String message = "____________________________________________________________\n"
 						+ "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
 						+ "____________________________________________________________\n";
 				throw new DukeException(message);
 			}
 		} catch (DukeException e) {
-			System.out.println(e);
+			storage.updateLog(e.getMessage());
 		}
 	}
 

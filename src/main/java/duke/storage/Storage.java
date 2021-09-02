@@ -15,6 +15,7 @@ import java.nio.file.Paths;
  */
 public class Storage {
 	private Path dir = Paths.get(System.getProperty("user.dir") + "/src/main/java/output");
+	String dirPathString = dir.toString();
 
 	/**
 	 * Creates duke.txt to contain task list, if not exists.
@@ -28,9 +29,12 @@ public class Storage {
 			}
 		}
 		try {
-			String path = dir.toString() + "/duke.txt";
-			File file = new File(path);
-			file.createNewFile();
+			String dukePath = dirPathString + "/duke.txt";
+			String logPath = dirPathString + "/log.txt";
+			File dukeFile = new File(dukePath);
+			File logFile = new File(logPath);
+			dukeFile.createNewFile();
+			logFile.createNewFile();
 		} catch (IOException e) {
 			System.out.println("Unexpected IO error occurred.");
 		}
@@ -41,12 +45,24 @@ public class Storage {
 	 */
 	public void updateFile(TaskList storeRoom) {
 		try {
-			String path = dir.toString() + "/duke.txt";
+			String path = dirPathString + "/duke.txt";
 			FileWriter fileWriter = new FileWriter(path);
 			for (Task task : storeRoom.getTaskList()) {
 				fileWriter.write(task.toString());
 				fileWriter.write("\n");
 			}
+			fileWriter.close();
+		} catch (IOException e) {
+			System.out.println("Unexpected IO error occurred");
+		}
+	}
+
+	public void updateLog(String newLog) {
+		try {
+			String path = dirPathString + "/log.txt";
+			FileWriter fileWriter = new FileWriter(path);
+			fileWriter.write(newLog);
+			fileWriter.write("\n");
 			fileWriter.close();
 		} catch (IOException e) {
 			System.out.println("Unexpected IO error occurred");

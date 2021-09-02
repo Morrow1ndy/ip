@@ -2,6 +2,7 @@ package duke.operation;
 
 import duke.Parser.Parser;
 import duke.exception.DukeException;
+import duke.storage.Storage;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,8 @@ import java.util.ArrayList;
  * This is the TaskList class to contain task list and handle operations.
  */
 public class TaskList {
-	protected ArrayList<Task> taskList;
+	private ArrayList<Task> taskList;
+	private Storage storage = new Storage();
 
 	public TaskList() {
 		this.taskList = new ArrayList<>();
@@ -80,7 +82,6 @@ public class TaskList {
 			break;
 		}
 		default: {
-			System.out.println("TaskList");
 			message = "____________________________________________________________\n"
 					+ "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
 					+ "____________________________________________________________\n";
@@ -107,32 +108,32 @@ public class TaskList {
 	 * Prints task list.
 	 */
 	public void printList() {
-		System.out.println("____________________________________________________________\n"
+		storage.updateLog("____________________________________________________________\n"
 				+ "Here are the tasks in your list:");
 		int counter = 1;
 		for (Task taskForLoop : taskList) {
-			System.out.println(counter
+			storage.updateLog(counter
 					+ "."
 					+ taskForLoop);
 			counter++;
 		}
-		System.out.println("____________________________________________________________\n");
+		storage.updateLog("____________________________________________________________\n");
 	}
 
 	/**
 	 * Prints filtered task list after FIND command.
 	 */
 	public void printFilteredList() {
-		System.out.println("____________________________________________________________\n"
+		storage.updateLog("____________________________________________________________\n"
 				+ "Here are the tasks found by your keyword in your list:");
 		int counter = 1;
 		for (Task taskForLoop : taskList) {
-			System.out.println(counter
+			storage.updateLog(counter
 					+ "."
 					+ taskForLoop);
 			counter++;
 		}
-		System.out.println("____________________________________________________________\n");
+		storage.updateLog("____________________________________________________________\n");
 	}
 
 	/**
@@ -151,7 +152,7 @@ public class TaskList {
 	 * Prints the task that is marked done.
 	 */
 	public void printDoneTask(Task doneTask) {
-		System.out.println("____________________________________________________________\n"
+		storage.updateLog("____________________________________________________________\n"
 				+ "Nice! I've marked this task as done:\n  "
 				+ doneTask
 				+ "\n"
@@ -164,7 +165,7 @@ public class TaskList {
 	 * @param size current size of the storeroom
 	 */
 	public void printAddTask(int size, Task task) {
-		System.out.println("____________________________________________________________\n"
+		storage.updateLog("____________________________________________________________\n"
 				+ "Got it. I've added this task:\n  "
 				+ task
 				+ "\n"
@@ -181,7 +182,7 @@ public class TaskList {
 	 * @param size current size of the storeroom
 	 */
 	public void printDeleteTask(int size, Task task) {
-		System.out.println("____________________________________________________________\n"
+		storage.updateLog("____________________________________________________________\n"
 				+ "Noted. I've removed this task:\n  "
 				+ task
 				+ "\n"
